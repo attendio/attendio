@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signin_funcs.dart';
 
+// Landing page for post successful login
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

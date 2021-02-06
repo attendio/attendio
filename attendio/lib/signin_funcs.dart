@@ -9,6 +9,7 @@ String name;
 String email;
 String imageUrl;
 
+// Functions for signing in and out via Google Auth.
 Future<String> signInWithGoogle() async {
   await Firebase.initializeApp();
 

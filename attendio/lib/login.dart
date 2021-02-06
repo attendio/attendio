@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'signin_funcs.dart';
 import 'home.dart';
 
+// Login page layout
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
