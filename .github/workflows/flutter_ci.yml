@@ -1,0 +1,74 @@
+name: CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  flutter_test:
+    name: Run flutter test and analyze results
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "attendio"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "14.x"
+      - uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: "stable"
+      - run: flutter pub get
+        working-directory: ${{env.working-directory}}
+      - run: flutter analyze
+        working-directory: ${{env.working-directory}}
+      - run: flutter test
+        working-directory: ${{env.working-directory}}
+  build_ios:
+    name: Build flutter app for iOS
+    runs-on: macos-latest
+    env:
+      working-directory: "attendio"
+    needs: [flutter_test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "14.x"
+      - uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: "stable"
+      - run: flutter pub get
+        working-directory: ${{env.working-directory}}
+      - run: flutter clean
+        working-directory: ${{env.working-directory}}
+      - run: flutter build ios --no-codesign
+        working-directory: ${{env.working-directory}}
+  build_android:
+    name: Build flutter app for Android
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "attendio"
+    needs: [flutter_test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "14.x"
+      - uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: "stable"
+      - run: flutter pub get
+        working-directory: ${{env.working-directory}}
+      - run: flutter clean
+        working-directory: ${{env.working-directory}}
+      - run: flutter build appbundle
+        working-directory: ${{env.working-directory}}
