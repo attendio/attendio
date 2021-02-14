@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "266166685100-goos8tlbh7isk3g52jsc8rg78r59rjk9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.attendio",
+            "certificate_hash": "114da77ceee61788b0e2acccc25423f06767dc72"
+          }
+        },
+        {
           "client_id": "266166685100-foj2ghlre0vn57ms6rfs6907rgsgtqj2.apps.googleusercontent.com",
           "client_type": 3
         }
