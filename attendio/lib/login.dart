@@ -13,14 +13,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomPaint(
-        painter: BluePainter(), //FF is transparency
+        painter: BackgroundPainter(),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 150),
               FlutterLogo(size: 150),
-              SizedBox(height: 50),
+              SizedBox(height: 100),
               _signInButton(),
             ],
           ),
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 // https://www.youtube.com/watch?v=u96GgqHFy3c
-class BluePainter extends CustomPainter {
+class BackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final height = size.height;
