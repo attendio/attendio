@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dynamic_link_funcs.dart';
 import 'signin_funcs.dart';
 import 'home.dart';
 
@@ -9,6 +10,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    initDynamicLinks(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
