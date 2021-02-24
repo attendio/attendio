@@ -32,3 +32,16 @@ void handleDeepLink(context, Uri deepLink) async {
     Navigator.pushNamed(context, deepLink.path);
   }
 }
+
+Future<String> createEvent(String username, String eventId) async {
+  final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://attendio.page.link/',
+      link: Uri.parse('https://www.example.com/$username/$eventId'),
+      androidParameters: AndroidParameters(
+        packageName: 'com.example.attendio',
+      ));
+
+  final Uri dynamicUrl = await parameters.buildUrl();
+
+  return dynamicUrl.toString();
+}
