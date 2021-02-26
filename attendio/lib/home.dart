@@ -5,6 +5,11 @@ import 'dynamic_link_funcs.dart';
 
 // Landing page for post successful login
 class FirstScreen extends StatelessWidget {
+  final ButtonStyle elevatedStyle = ElevatedButton.styleFrom(
+      elevation: 5,
+      primary: Colors.deepPurple,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +64,7 @@ class FirstScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 40),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
@@ -67,7 +72,6 @@ class FirstScreen extends StatelessWidget {
                     return LoginPage();
                   }), ModalRoute.withName('/'));
                 },
-                color: Colors.deepPurple,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -75,16 +79,13 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
+                style: elevatedStyle,
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   String url = await createEvent("test", "12345");
                   print(url);
                 },
-                color: Colors.deepPurple,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -92,15 +93,12 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
+                style: elevatedStyle,
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/test');
                 },
-                color: Colors.deepPurple,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -108,9 +106,7 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
+                style: elevatedStyle,
               )
             ],
           ),

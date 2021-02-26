@@ -38,8 +38,25 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _signInButton() {
-    return OutlineButton(
-      splashColor: Colors.grey,
+    final ButtonStyle outlinedStyle = ButtonStyle(
+        elevation: MaterialStateProperty.resolveWith<double>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed)) return 0;
+          return null;
+        }),
+        overlayColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed)) return Colors.grey;
+          return null;
+        }),
+        shape: MaterialStateProperty.all<OutlinedBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
+        side: MaterialStateProperty.resolveWith<BorderSide>(
+            (Set<MaterialState> states) {
+          return BorderSide(color: Colors.grey);
+        }));
+
+    return OutlinedButton(
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
@@ -53,9 +70,6 @@ class _LoginPageState extends State<LoginPage> {
           }
         });
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
@@ -76,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+      style: outlinedStyle,
     );
   }
 }
