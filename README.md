@@ -10,4 +10,9 @@
 
 ```flutter run -d chrome --web-hostname localhost --web-port 5000```
 
+### Flow Diagram
+
+<p>
+<img src="Docs/Drawio/Attendio.png" alt="Testing Results" width="800"/>
+</p>
 
