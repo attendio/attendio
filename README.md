@@ -16,6 +16,10 @@
 <img src="Docs/Drawio/Attendio.png" alt="Testing Results" width="800"/>
 </p>
 
+### Preliminary Design Report
+
+[Document](https://github.com/attendio/attendio/blob/main/Docs/Preliminary%20Design%20Report%20-%20Team%204.pdf)
+
 ### MVP Sketches
 
 [Document](https://github.com/attendio/attendio/blob/main/Docs/attendio-mvp-design-sketch.pdf)
@@ -23,3 +27,4 @@
 ### Guidelines for Migrating to new Material Buttons
 
 [Document](https://github.com/attendio/attendio/blob/main/Docs/Migrating_to_the_New_Material_Buttons_and_their_Themes.pdf)
+
