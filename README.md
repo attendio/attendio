@@ -20,7 +20,6 @@
 
 [Document](https://github.com/attendio/attendio/blob/main/Docs/attendio-mvp-design-sketch.pdf)
 
-### Migrating to new materia buttons
+### Guidelines for Migrating to new Material Buttons
 
-[Document]()
-
+[Document](https://github.com/attendio/attendio/blob/main/Docs/Migrating_to_the_New_Material_Buttons_and_their_Themes.pdf)
