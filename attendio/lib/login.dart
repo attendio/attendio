@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signin_funcs.dart';
-import 'home.dart';
+import 'events.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return FirstScreen();
+                  return EventDetailsPage();
                 },
               ),
             );
