@@ -28,6 +28,8 @@ dependencies:
   google_sign_in: "^4.5.9"
   firebase_dynamic_links: "^0.7.0+1"
   qr_flutter: "^3.2.0"
+  path_provider: "^1.6.27"
+  share: "^0.6.5+4"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
