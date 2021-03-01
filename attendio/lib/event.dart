@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
+import 'package:flutter/services.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -49,6 +50,19 @@ class _EventPageState extends State<EventPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Share',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                  style: elevatedStyle,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Clipboard.setData(new ClipboardData(text: dynamicLink));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Copy Dynamic Link',
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
