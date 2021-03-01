@@ -8,7 +8,7 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => LoginPage(),
-      '/test': (context) => EventScreen(),
+      '/test': (context) => EventPage(),
     },
   ));
 }
