@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:attendio/utils/styles.dart';
 import 'event.dart';
 import 'login.dart';
 
 void main() {
   runApp(MaterialApp(
+    theme: globalTheme,
     initialRoute: '/',
     routes: {
       '/': (context) => LoginPage(),
