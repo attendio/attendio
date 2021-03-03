@@ -23,7 +23,7 @@ jobs:
           java-version: "12.x"
       - uses: subosito/flutter-action@v1.4.0
         with:
-          channel: "beta"
+          channel: "stable"
       - run: flutter pub get
         working-directory: ${{env.working-directory}}
       - run: flutter analyze
@@ -43,7 +43,7 @@ jobs:
           java-version: "12.x"
       - uses: subosito/flutter-action@v1.4.0
         with:
-          channel: "beta"
+          channel: "stable"
       - run: flutter pub get
         working-directory: ${{env.working-directory}}
       - run: flutter clean
@@ -63,7 +63,7 @@ jobs:
           java-version: "12.x"
       - uses: subosito/flutter-action@v1
         with:
-          channel: "beta"
+          channel: "stable"
       - run: flutter pub get
         working-directory: ${{env.working-directory}}
       - run: flutter clean
