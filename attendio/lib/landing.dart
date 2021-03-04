@@ -41,7 +41,6 @@ class _LandingPageState extends State<LandingPage> {
               SizedBox(height: 150),
               FlutterLogo(size: 150),
               SizedBox(height: 50),
-              // _signInButton(),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -58,7 +57,9 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 15),
+              _signInButton(),
+              SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -83,23 +84,10 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Widget _signInButton() {
-    final ButtonStyle outlinedStyle = ButtonStyle(
-        elevation: MaterialStateProperty.resolveWith<double>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return 0;
-          return null;
-        }),
-        overlayColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return Colors.grey;
-          return null;
-        }),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
-        side: MaterialStateProperty.resolveWith<BorderSide>(
-            (Set<MaterialState> states) {
-          return BorderSide(color: Colors.grey);
-        }));
+    final ButtonStyle outlinedStyle = ElevatedButton.styleFrom(
+      elevation: 5,
+      primary: Color(0xFFB39DDB),
+    );
 
     return OutlinedButton(
       onPressed: () {
@@ -128,7 +116,7 @@ class _LandingPageState extends State<LandingPage> {
                 'Sign in with Google',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.grey,
+                  color: Colors.white,
                 ),
               ),
             )
