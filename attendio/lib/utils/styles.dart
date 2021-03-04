@@ -8,10 +8,14 @@ final Map<String, Color> colors = {
   'light_purple': Color(0xFFB39DDB)
 };
 
+final ColorScheme defaultColorScheme = ColorScheme.light().copyWith(
+  primary: Color(0xFF6A1B9A),
+  secondary: Color(0xFFD1C4E9),
+);
+
 final ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
   style: ElevatedButton.styleFrom(
     elevation: 5,
-    primary: colors['primary'],
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
   ),
 );
@@ -25,8 +29,7 @@ final InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
 // Refer to Flutter Material docs for proper classes for custom themes
 // https://api.flutter.dev/flutter/material/material-library.html
 final ThemeData globalTheme = ThemeData(
-  primaryColor: colors['primary'],
-  accentColor: colors['secondary'],
+  colorScheme: defaultColorScheme,
   elevatedButtonTheme: elevatedButtonTheme,
   inputDecorationTheme: inputDecorationTheme,
 );

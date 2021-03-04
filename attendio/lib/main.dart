@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:attendio/utils/styles.dart';
+import 'utils/styles.dart';
 import 'event.dart';
 import 'login.dart';
 

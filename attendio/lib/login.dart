@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dynamic_link_funcs.dart';
 import 'signin_funcs.dart';
 import 'home.dart';
-import 'package:attendio/utils/styles.dart';
+import 'utils/styles.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {
