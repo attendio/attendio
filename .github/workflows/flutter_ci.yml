@@ -28,8 +28,8 @@ jobs:
         working-directory: ${{env.working-directory}}
       - run: flutter analyze
         working-directory: ${{env.working-directory}}
-      - run: flutter test
-        working-directory: ${{env.working-directory}}
+      # - run: flutter test
+      #   working-directory: ${{env.working-directory}}
   build_ios:
     name: Build flutter app for iOS
     runs-on: macos-latest
