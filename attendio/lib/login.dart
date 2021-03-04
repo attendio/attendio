@@ -1,10 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 import 'dynamic_link_funcs.dart';
-import 'signin_funcs.dart';
 import 'home.dart';
+import 'signin_funcs.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {
+  final FirebaseDynamicLinks dynamicLink;
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
+
+  LoginPage(
+      {@required this.dynamicLink,
+      @required this.auth,
+      @required this.googleSignIn});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -13,7 +26,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    initDynamicLinks(context);
+    DynamicLink(
+            dynamicLink: widget.dynamicLink,
+            auth: widget.auth,
+            googleSignIn: widget.googleSignIn)
+        .initDynamicLinks(context);
   }
 
   @override
@@ -58,12 +75,17 @@ class _LoginPageState extends State<LoginPage> {
 
     return OutlinedButton(
       onPressed: () {
-        signInWithGoogle().then((result) {
+        Auth(auth: widget.auth, googleSignIn: widget.googleSignIn)
+            .signInWithGoogle()
+            .then((result) {
           if (result != null) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return FirstScreen();
+                  return FirstScreen(
+                      dynamicLink: widget.dynamicLink,
+                      auth: widget.auth,
+                      googleSignIn: widget.googleSignIn);
                 },
               ),
             );

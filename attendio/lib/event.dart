@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share/share.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -57,7 +57,7 @@ class _EventPageState extends State<EventPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Clipboard.setData(new ClipboardData(text: dynamicLink));
+                    Clipboard.setData(ClipboardData(text: dynamicLink));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
