@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dynamic_link_funcs.dart';
-import 'signin_funcs.dart';
-import 'home.dart';
 
 // Login page layout
-class LoginPage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     super.initState();
@@ -26,6 +24,17 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 50),
+              RichText(
+                text: TextSpan(
+                  text: 'Sign Up',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               SizedBox(height: 150),
               FlutterLogo(size: 150),
               SizedBox(height: 50),

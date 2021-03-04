@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dynamic_link_funcs.dart';
-import 'signin_funcs.dart';
-import 'home.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {
@@ -16,16 +14,6 @@ class _LoginPageState extends State<LoginPage> {
     initDynamicLinks(context);
   }
 
-  final ButtonStyle loginStyle = ElevatedButton.styleFrom(
-    elevation: 5,
-    primary: Color(0xFFB39DDB),
-  );
-
-  final ButtonStyle signupStyle = ElevatedButton.styleFrom(
-    elevation: 5,
-    primary: Color(0xFFB39DDB),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,98 +24,24 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 50),
+              RichText(
+                text: TextSpan(
+                  text: 'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               SizedBox(height: 150),
               FlutterLogo(size: 150),
               SizedBox(height: 50),
-              // _signInButton(),
-              ElevatedButton(
-                onPressed: () {
-                  // pass
-                },
-                style: loginStyle,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Have account? Login',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              ElevatedButton(
-                onPressed: () {
-                  // pass
-                },
-                style: signupStyle,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _signInButton() {
-    final ButtonStyle outlinedStyle = ButtonStyle(
-        elevation: MaterialStateProperty.resolveWith<double>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return 0;
-          return null;
-        }),
-        overlayColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return Colors.grey;
-          return null;
-        }),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
-        side: MaterialStateProperty.resolveWith<BorderSide>(
-            (Set<MaterialState> states) {
-          return BorderSide(color: Colors.grey);
-        }));
-
-    return OutlinedButton(
-      onPressed: () {
-        signInWithGoogle().then((result) {
-          if (result != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return FirstScreen();
-                },
-              ),
-            );
-          }
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                'Sign in with Google',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-      style: outlinedStyle,
     );
   }
 }

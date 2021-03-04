@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'landing.dart';
 import 'signin_funcs.dart';
 import 'dynamic_link_funcs.dart';
 
@@ -69,7 +69,7 @@ class FirstScreen extends StatelessWidget {
                   signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LoginPage();
+                    return LandingPage();
                   }), ModalRoute.withName('/'));
                 },
                 child: Padding(

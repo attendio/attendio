@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'event.dart';
-import 'login.dart';
+import 'landing.dart';
 
 void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/': (context) => LoginPage(),
+      '/': (context) => LandingPage(),
       '/test': (context) => EventScreen(),
     },
   ));
