@@ -14,6 +14,11 @@ class _SignupPageState extends State<SignupPage> {
     initDynamicLinks(context);
   }
 
+  final ButtonStyle createAccountStyle = ElevatedButton.styleFrom(
+    elevation: 5,
+    primary: Color(0xFF38006B),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +40,63 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 150),
-              FlutterLogo(size: 150),
+              SizedBox(height: 50),
+              Container(
+                  width: 300,
+                  height: 400,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 125),
+                      ElevatedButton(
+                        onPressed: () {
+                          //pass
+                        },
+                        style: createAccountStyle,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Create Account',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
               SizedBox(height: 50),
             ],
           ),
