@@ -16,6 +16,16 @@ class _LoginPageState extends State<LoginPage> {
     initDynamicLinks(context);
   }
 
+  final ButtonStyle loginStyle = ElevatedButton.styleFrom(
+    elevation: 5,
+    primary: Color(0xFFB39DDB),
+  );
+
+  final ButtonStyle signupStyle = ElevatedButton.styleFrom(
+    elevation: 5,
+    primary: Color(0xFFB39DDB),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +38,35 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               SizedBox(height: 150),
               FlutterLogo(size: 150),
-              SizedBox(height: 100),
-              _signInButton(),
+              SizedBox(height: 50),
+              // _signInButton(),
+              ElevatedButton(
+                onPressed: () {
+                  // pass
+                },
+                style: loginStyle,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Have account? Login',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+              ),
+              SizedBox(height: 25),
+              ElevatedButton(
+                onPressed: () {
+                  // pass
+                },
+                style: signupStyle,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
