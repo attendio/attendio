@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dynamic_link_funcs.dart';
-import 'signin_funcs.dart';
-import 'home.dart';
 import 'utils/styles.dart';
 
 // Login page layout
@@ -27,71 +25,24 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 50),
+              RichText(
+                text: TextSpan(
+                  text: 'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               SizedBox(height: 150),
               FlutterLogo(size: 150),
-              SizedBox(height: 100),
-              _signInButton(),
+              SizedBox(height: 50),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _signInButton() {
-    final ButtonStyle outlinedStyle = ButtonStyle(
-        elevation: MaterialStateProperty.resolveWith<double>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return 0;
-          return null;
-        }),
-        overlayColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) return Colors.grey;
-          return null;
-        }),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
-        side: MaterialStateProperty.resolveWith<BorderSide>(
-            (Set<MaterialState> states) {
-          return BorderSide(color: Colors.grey);
-        }));
-
-    return OutlinedButton(
-      onPressed: () {
-        signInWithGoogle().then((result) {
-          if (result != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return FirstScreen();
-                },
-              ),
-            );
-          }
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                'Sign in with Google',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-      style: outlinedStyle,
     );
   }
 }
