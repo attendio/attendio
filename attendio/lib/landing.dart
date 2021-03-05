@@ -1,5 +1,9 @@
 import 'package:attendio/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 import 'dynamic_link_funcs.dart';
 import 'login.dart';
 import 'signin_funcs.dart';
@@ -7,6 +11,15 @@ import 'home.dart';
 
 // Login page layout
 class LandingPage extends StatefulWidget {
+  final FirebaseDynamicLinks dynamicLink;
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
+
+  LandingPage(
+      {@required this.dynamicLink,
+      @required this.auth,
+      @required this.googleSignIn});
+
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -15,7 +28,11 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-    initDynamicLinks(context);
+    DynamicLink(
+            dynamicLink: widget.dynamicLink,
+            auth: widget.auth,
+            googleSignIn: widget.googleSignIn)
+        .initDynamicLinks(context);
   }
 
   final ButtonStyle loginStyle = ElevatedButton.styleFrom(
@@ -44,9 +61,12 @@ class _LandingPageState extends State<LandingPage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage(
+                              dynamicLink: widget.dynamicLink,
+                              auth: widget.auth,
+                              googleSignIn: widget.googleSignIn)));
                 },
                 style: loginStyle,
                 child: Padding(
@@ -91,12 +111,17 @@ class _LandingPageState extends State<LandingPage> {
 
     return OutlinedButton(
       onPressed: () {
-        signInWithGoogle().then((result) {
+        Auth(auth: widget.auth, googleSignIn: widget.googleSignIn)
+            .signInWithGoogle()
+            .then((result) {
           if (result != null) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return FirstScreen();
+                  return HomePage(
+                      dynamicLink: widget.dynamicLink,
+                      auth: widget.auth,
+                      googleSignIn: widget.googleSignIn);
                 },
               ),
             );

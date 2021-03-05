@@ -1,10 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import 'dynamic_link_funcs.dart';
 import 'landing.dart';
 import 'signin_funcs.dart';
-import 'dynamic_link_funcs.dart';
 
 // Landing page for post successful login
-class FirstScreen extends StatelessWidget {
+class HomePage extends StatelessWidget {
+  final FirebaseDynamicLinks dynamicLink;
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
+
+  HomePage(
+      {@required this.dynamicLink,
+      @required this.auth,
+      @required this.googleSignIn});
+
+  final ButtonStyle elevatedStyle = ElevatedButton.styleFrom(
+      elevation: 5,
+      primary: Colors.deepPurple,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +41,7 @@ class FirstScreen extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  imageUrl,
+                  auth.currentUser.photoURL,
                 ),
                 radius: 60,
                 backgroundColor: Colors.transparent,
@@ -37,7 +55,7 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                name,
+                Auth(auth: auth, googleSignIn: googleSignIn).getName(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -52,7 +70,7 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                email,
+                auth.currentUser.email,
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -61,10 +79,13 @@ class FirstScreen extends StatelessWidget {
               SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  signOutGoogle();
+                  Auth(auth: auth, googleSignIn: googleSignIn).signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LandingPage();
+                    return LandingPage(
+                        dynamicLink: dynamicLink,
+                        auth: auth,
+                        googleSignIn: googleSignIn);
                   }), ModalRoute.withName('/'));
                 },
                 child: Padding(
@@ -77,7 +98,11 @@ class FirstScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String url = await createEvent("test", "12345");
+                  String url = await DynamicLink(
+                          dynamicLink: dynamicLink,
+                          auth: auth,
+                          googleSignIn: googleSignIn)
+                      .createDynamicLink("test", "12345");
                   print(url);
                 },
                 child: Padding(

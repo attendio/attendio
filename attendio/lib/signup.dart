@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dynamic_link_funcs.dart';
 
 // Login page layout
 class SignupPage extends StatefulWidget {
@@ -8,12 +7,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  @override
-  void initState() {
-    super.initState();
-    initDynamicLinks(context);
-  }
-
   final ButtonStyle createAccountStyle = ElevatedButton.styleFrom(
     elevation: 5,
     primary: Color(0xFF38006B),

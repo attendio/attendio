@@ -1,69 +1,61 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
-bool signedIn = false;
+class Auth {
+  final FirebaseAuth auth; //= FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn; // = GoogleSignIn();
 
-String name;
-String email;
-String imageUrl;
+  Auth({@required this.auth, @required this.googleSignIn});
 
-// Functions for signing in and out via Google Auth.
-Future<String> signInWithGoogle() async {
-  await Firebase.initializeApp();
+  // Functions for signing in and out via Google Auth.
+  Future<String> signInWithGoogle() async {
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
 
-  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
 
-  final AuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleSignInAuthentication.accessToken,
-    idToken: googleSignInAuthentication.idToken,
-  );
+    final UserCredential authResult =
+        await auth.signInWithCredential(credential);
+    final User user = authResult.user;
 
-  final UserCredential authResult =
-      await _auth.signInWithCredential(credential);
-  final User user = authResult.user;
+    if (user != null) {
+      // Checking if email and name is null
+      assert(user.email != null);
+      assert(user.displayName != null);
+      assert(user.photoURL != null);
 
-  if (user != null) {
-    // Checking if email and name is null
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(user.photoURL != null);
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
 
-    name = user.displayName;
-    email = user.email;
-    imageUrl = user.photoURL;
+      final User currentUser = auth.currentUser;
+      assert(user.uid == currentUser.uid);
 
-    // Only taking the first part of the name, i.e., First Name
-    if (name.contains(" ")) {
-      name = name.substring(0, name.indexOf(" "));
+      print('signInWithGoogle succeeded: $user');
+
+      return '$user';
     }
 
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final User currentUser = _auth.currentUser;
-    assert(user.uid == currentUser.uid);
-
-    print('signInWithGoogle succeeded: $user');
-    signedIn = true;
-
-    return '$user';
+    return null;
   }
 
-  return null;
-}
+  Future<void> signOutGoogle() async {
+    await googleSignIn.signOut();
+    await auth.signOut();
+  }
 
-Future<void> signOutGoogle() async {
-  await googleSignIn.signOut();
-  signedIn = false;
+  bool isSignedIn() {
+    return (auth.currentUser != null) ? true : false;
+  }
 
-  print("User Signed Out");
-}
+  String getName() {
+    String name = auth.currentUser.displayName;
 
-bool isSignedIn() {
-  return signedIn;
+    // Only taking the first part of the name, i.e., First Name
+    return (name.contains(" ")) ? name.substring(0, name.indexOf(" ")) : name;
+  }
 }
