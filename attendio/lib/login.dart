@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dynamic_link_funcs.dart';
+import 'utils/styles.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {
@@ -56,20 +57,20 @@ class BackgroundPainter extends CustomPainter {
 
     Path mainBackground = Path();
     mainBackground.addRect(Rect.fromLTRB(0, 0, width, height));
-    paint.color = Color(0xFF6A1B9A);
+    paint.color = colors['primary'];
     canvas.drawPath(mainBackground, paint);
 
     final p1 = Offset(0, height * 2);
     final p2 = Offset(width * 1.5, height * 0.5);
     Paint paint2 = Paint()
-      ..color = Color(0xFFB39DDB)
+      ..color = colors['light_purple']
       ..strokeWidth = 400;
     canvas.drawLine(p1, p2, paint2);
 
     final p3 = Offset(-150, height * 0.8);
     final p4 = Offset(width, height * 1.2);
     Paint paint3 = Paint()
-      ..color = Color(0xFFFFFFFF)
+      ..color = Colors.white
       ..strokeWidth = 400;
     canvas.drawLine(p3, p4, paint3);
   }
