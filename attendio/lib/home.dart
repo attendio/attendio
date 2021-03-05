@@ -5,11 +5,6 @@ import 'dynamic_link_funcs.dart';
 
 // Landing page for post successful login
 class FirstScreen extends StatelessWidget {
-  final ButtonStyle elevatedStyle = ElevatedButton.styleFrom(
-      elevation: 5,
-      primary: Colors.deepPurple,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)));
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +74,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -93,7 +87,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -106,7 +99,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               )
             ],
           ),
