@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'event.dart';
-import 'login.dart';
+import 'landing.dart';
 
 void main() {
   runApp(App());
@@ -29,7 +29,7 @@ class App extends StatelessWidget {
 
             // Once complete, show login page
             if (snapshot.connectionState == ConnectionState.done) {
-              return LoginPage(
+              return LandingPage(
                   dynamicLink: FirebaseDynamicLinks.instance,
                   auth: FirebaseAuth.instance,
                   googleSignIn: GoogleSignIn());

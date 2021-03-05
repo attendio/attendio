@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'dynamic_link_funcs.dart';
-import 'login.dart';
+import 'landing.dart';
 import 'signin_funcs.dart';
 
 // Landing page for post successful login
-class FirstScreen extends StatelessWidget {
+class HomePage extends StatelessWidget {
   final FirebaseDynamicLinks dynamicLink;
   final FirebaseAuth auth;
   final GoogleSignIn googleSignIn;
 
-  FirstScreen(
+  HomePage(
       {@required this.dynamicLink,
       @required this.auth,
       @required this.googleSignIn});
@@ -82,7 +82,7 @@ class FirstScreen extends StatelessWidget {
                   Auth(auth: auth, googleSignIn: googleSignIn).signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LoginPage(
+                    return LandingPage(
                         dynamicLink: dynamicLink,
                         auth: auth,
                         googleSignIn: googleSignIn);
@@ -95,7 +95,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -113,7 +112,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -126,7 +124,6 @@ class FirstScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
-                style: elevatedStyle,
               )
             ],
           ),

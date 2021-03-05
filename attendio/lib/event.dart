@@ -15,10 +15,6 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   GlobalKey globalKey = new GlobalKey();
-  final ButtonStyle elevatedStyle = ElevatedButton.styleFrom(
-      elevation: 5,
-      primary: Colors.deepPurple,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)));
 
   String dynamicLink = "insert link here";
 
@@ -53,7 +49,6 @@ class _EventPageState extends State<EventPage> {
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
-                  style: elevatedStyle,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -66,7 +61,6 @@ class _EventPageState extends State<EventPage> {
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
-                  style: elevatedStyle,
                 ),
               ],
             ),
