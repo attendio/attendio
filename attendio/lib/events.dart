@@ -1,5 +1,8 @@
+import 'package:attendio/models/dataRepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'models/event.dart';
 
 /// Page showing the list of events created by the user,
 /// along with details for each event when selected.
@@ -12,8 +15,8 @@ class EventList extends StatefulWidget {
   final ItemSelectedCallback onItemSelected;
 
   EventList(
-      this.count,
-      this.onItemSelected,
+    this.count,
+    this.onItemSelected,
   );
 
   @override
@@ -21,31 +24,46 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
+  final DataRepository repository = DataRepository();
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: _getEventListTiles(context),
+    return StreamBuilder<QuerySnapshot>(
+      stream: repository.getStream(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        }
+
+        QuerySnapshot querySnapshot = snapshot.data;
+
+        return ListView.builder(
+            itemCount: querySnapshot.size,
+            itemBuilder: (context, index) =>
+                _buildEventListItem(querySnapshot.docs[index], index));
+      },
     );
   }
 
-  List<Widget> _getEventListTiles(BuildContext context) {
-    //TODO construct Event List Tiles dynamically from Firestore
-    //TODO Will also need to implement onItemSelected for each
-
-    return [
-      Card(child: ListTile(title: Text('Event #1'))),
-      Card(child: ListTile(title: Text('Event #2'))),
-      Card(child: ListTile(title: Text('Event #3'))),
-      Card(child: ListTile(title: Text('Event #4'))),
-      Card(child: ListTile(title: Text('Event #5'))),
-      Card(child: ListTile(title: Text('Event #6'))),
-    ];
+  Widget _buildEventListItem(snapshot, position) {
+    final event = Event.fromSnapshot(snapshot);
+    return Card(
+      child: InkWell(
+        child: ListTile(
+          title: Text(event.event_name),
+        ),
+        onTap: widget.onItemSelected(position),
+      ),
+    );
   }
 }
 
 /// Displays the details for the event selected on the EventList
 class EventDetail extends StatefulWidget {
-
   final String eventTitle;
 
   EventDetail(this.eventTitle);
@@ -58,15 +76,12 @@ class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(widget.eventTitle, style: Theme.of(context).textTheme.headline1),
-          ]
-        )
-      )
-    );
+        child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+          Text(widget.eventTitle, style: Theme.of(context).textTheme.headline2),
+        ])));
   }
 }
 
@@ -80,34 +95,36 @@ class EventDetailsPage extends StatefulWidget {
 class _EventDetailsPageState extends State<EventDetailsPage> {
   var selectedValue = 0;
   var isLargeScreen = false;
-  
+
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation ) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: OrientationBuilder(builder: (context, orientation) {
+        isLargeScreen =
+            (MediaQuery.of(context).size.width > widget.minScreenWidth);
 
-      isLargeScreen = (MediaQuery.of(context).size.width > widget.minScreenWidth);
-
-      return Row(children: [
-        Expanded(
-          child: EventList(6, (value) {
-            if (isLargeScreen) {
-              selectedValue = value;
-              setState(() {});
-            } else {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return SmallDetailPage("Event Title");
-                },
-              ));
-            }
-          }),
-        ),
-        isLargeScreen ? Expanded(
-        child: EventDetail("Event Title"),
-          flex: 3)
-        : Container(),
-      ]);
-    });
+        return Row(children: [
+          Expanded(
+            child: EventList(6, (value) {
+              if (isLargeScreen) {
+                selectedValue = value;
+                setState(() {});
+              } else {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return SmallDetailPage("Event Title");
+                  },
+                ));
+              }
+            }),
+          ),
+          isLargeScreen
+              ? Expanded(child: EventDetail("Event Title"), flex: 3)
+              : Container(),
+        ]);
+      }),
+    );
   }
 }
 
@@ -123,9 +140,6 @@ class SmallDetailPage extends StatefulWidget {
 class _SmallDetailPageState extends State<SmallDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: EventDetail(widget.eventTitle)
-    );
+    return Scaffold(appBar: AppBar(), body: EventDetail(widget.eventTitle));
   }
 }
