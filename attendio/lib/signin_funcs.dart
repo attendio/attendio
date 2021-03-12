@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Auth {
-  final FirebaseAuth auth; //= FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn; // = GoogleSignIn();
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
 
   Auth({@required this.auth, @required this.googleSignIn});
 
