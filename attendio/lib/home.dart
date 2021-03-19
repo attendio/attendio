@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'dynamic_link_funcs.dart';
 import 'landing.dart';
 import 'signin_funcs.dart';
+import 'create_event.dart';
 
 // Landing page for post successful login
 class HomePage extends StatelessWidget {
@@ -97,13 +98,19 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () async {
-                  String url = await DynamicLink(
-                          dynamicLink: dynamicLink,
-                          auth: auth,
-                          googleSignIn: googleSignIn)
-                      .createDynamicLink("test", "12345");
-                  print(url);
+                // onPressed: () async {
+                //   String url = await DynamicLink(
+                //           dynamicLink: dynamicLink,
+                //           auth: auth,
+                //           googleSignIn: googleSignIn)
+                //       .createDynamicLink("test", "12345");
+                //   print(url);
+                // },
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreateEvent()),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
