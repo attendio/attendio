@@ -57,45 +57,45 @@ class _LandingPageState extends State<LandingPage> {
             children: <Widget>[
               SizedBox(height: 150),
               FlutterLogo(size: 150),
-              SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginPage(
-                              dynamicLink: widget.dynamicLink,
-                              auth: widget.auth,
-                              googleSignIn: widget.googleSignIn)));
-                },
-                style: loginStyle,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Have account? Login',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-              ),
+              SizedBox(height: 100),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => LoginPage(
+              //                 dynamicLink: widget.dynamicLink,
+              //                 auth: widget.auth,
+              //                 googleSignIn: widget.googleSignIn)));
+              //   },
+              //   style: loginStyle,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Text(
+              //       'Have account? Login',
+              //       style: TextStyle(fontSize: 25, color: Colors.white),
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 15),
               _signInButton(),
               SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupPage()),
-                  );
-                },
-                style: signupStyle,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => SignupPage()),
+              //     );
+              //   },
+              //   style: signupStyle,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Text(
+              //       'Sign Up',
+              //       style: TextStyle(fontSize: 25, color: Colors.white),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
