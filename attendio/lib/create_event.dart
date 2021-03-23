@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+final firestoreInstance = FirebaseFirestore.instance;
 
 // Login page layout
 class CreateEvent extends StatefulWidget {
@@ -61,6 +64,13 @@ class _CreateEventState extends State<CreateEvent> {
                   print(nameController.text);
                   print(dateController.text);
                   print(descriptionController.text);
+                  firestoreInstance.collection("Events").add({
+                    "event_name": "john",
+                    "datetime": 50,
+                    "description": "example@example.com",
+                  }).then((value) {
+                    print(value.id);
+                  });
                 },
                 style: submitStyle,
                 child: Padding(
