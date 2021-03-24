@@ -3,9 +3,8 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'dynamic_link_funcs.dart';
 import 'landing.dart';
-import 'signin_funcs.dart';
+import '../utils/signin_funcs.dart';
 import 'create_event.dart';
 
 // Landing page for post successful login

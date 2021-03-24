@@ -3,7 +3,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'utils/styles.dart';
+import '../utils/styles.dart';
 
 // Login page layout
 class LoginPage extends StatefulWidget {

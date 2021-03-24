@@ -1,5 +1,5 @@
 import 'package:attendio/event.dart';
-import 'package:attendio/landing.dart';
+import 'package:attendio/pages/landing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';

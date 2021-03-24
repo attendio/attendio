@@ -4,8 +4,8 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'event.dart';
-import 'landing.dart';
+import 'pages/event.dart';
+import 'pages/landing.dart';
 
 void main() {
   runApp(App());
