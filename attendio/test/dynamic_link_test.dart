@@ -1,4 +1,4 @@
-import 'package:attendio/event.dart';
+import 'package:attendio/pages/event.dart';
 import 'package:attendio/pages/landing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -50,10 +50,7 @@ void main() {
 
     // Load LandingPage
     await tester.pumpWidget(MaterialApp(
-      home: LandingPage(
-          dynamicLink: mockFirebaseDynamicLinks,
-          auth: mockFirebaseAuth,
-          googleSignIn: mockGoogleSignIn),
+      home: LandingPage(),
       navigatorObservers: [mockObserver],
       routes: {
         '/test': (context) => EventPage(),

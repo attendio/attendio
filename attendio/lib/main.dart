@@ -1,14 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'pages/event.dart';
 import 'pages/landing.dart';
 
 void main() {
-  runApp(App());
+  runApp(ProviderScope(child: App()));
 }
 
 class App extends StatelessWidget {
@@ -29,10 +27,7 @@ class App extends StatelessWidget {
 
             // Once complete, show login page
             if (snapshot.connectionState == ConnectionState.done) {
-              return LandingPage(
-                  dynamicLink: FirebaseDynamicLinks.instance,
-                  auth: FirebaseAuth.instance,
-                  googleSignIn: GoogleSignIn());
+              return LandingPage();
             }
 
             // Otherwise, show that it is loading

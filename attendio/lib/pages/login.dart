@@ -1,26 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../utils/styles.dart';
 
 // Login page layout
-class LoginPage extends StatefulWidget {
-  final FirebaseDynamicLinks dynamicLink;
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
 
-  LoginPage(
-      {@required this.dynamicLink,
-      @required this.auth,
-      @required this.googleSignIn});
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

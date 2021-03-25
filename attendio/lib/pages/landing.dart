@@ -1,38 +1,12 @@
+import 'package:attendio/providers/auth_provider.dart';
+import 'package:attendio/providers/dl_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-import '../utils/dynamic_link_funcs.dart';
-import '../utils/signin_funcs.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'home.dart';
 
 // Login page layout
-class LandingPage extends StatefulWidget {
-  final FirebaseDynamicLinks dynamicLink;
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
-
-  LandingPage(
-      {@required this.dynamicLink,
-      @required this.auth,
-      @required this.googleSignIn});
-
-  @override
-  _LandingPageState createState() => _LandingPageState();
-}
-
-class _LandingPageState extends State<LandingPage> {
-  @override
-  void initState() {
-    super.initState();
-    DynamicLink(
-            dynamicLink: widget.dynamicLink,
-            auth: widget.auth,
-            googleSignIn: widget.googleSignIn)
-        .initDynamicLinks(context);
-  }
-
+class LandingPage extends HookWidget {
   final ButtonStyle loginStyle = ElevatedButton.styleFrom(
     elevation: 5,
     primary: Color(0xFFB39DDB),
@@ -45,6 +19,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final dynamicLink = useProvider(linkServicesProvider);
+    dynamicLink.initDynamicLinks(context);
     return Scaffold(
       body: CustomPaint(
         painter: BackgroundPainter(),
@@ -76,7 +52,7 @@ class _LandingPageState extends State<LandingPage> {
               //   ),
               // ),
               SizedBox(height: 15),
-              _signInButton(),
+              _signInButton(context),
               SizedBox(height: 15),
               // ElevatedButton(
               //   onPressed: () {
@@ -101,7 +77,9 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget _signInButton() {
+  Widget _signInButton(BuildContext context) {
+    final auth = useProvider(authServicesProvider);
+
     final ButtonStyle outlinedStyle = ElevatedButton.styleFrom(
       elevation: 5,
       primary: Color(0xFFB39DDB),
@@ -109,17 +87,12 @@ class _LandingPageState extends State<LandingPage> {
 
     return OutlinedButton(
       onPressed: () {
-        Auth(auth: widget.auth, googleSignIn: widget.googleSignIn)
-            .signInWithGoogle()
-            .then((result) {
+        auth.signInWithGoogle().then((result) {
           if (result != null) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return HomePage(
-                      dynamicLink: widget.dynamicLink,
-                      auth: widget.auth,
-                      googleSignIn: widget.googleSignIn);
+                  return HomePage();
                 },
               ),
             );
