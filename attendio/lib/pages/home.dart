@@ -1,3 +1,4 @@
+import 'package:attendio/events.dart';
 import 'package:attendio/providers/auth_provider.dart';
 // import 'package:attendio/providers/dl_provider.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,21 @@ class HomePage extends HookWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Go To Event',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EventDetailsPage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'My Events',
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
