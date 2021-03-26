@@ -1,24 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:attendio/providers/auth_provider.dart';
+// import 'package:attendio/providers/dl_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'dynamic_link_funcs.dart';
 import 'landing.dart';
-import 'signin_funcs.dart';
 import 'create_event.dart';
 
 // Landing page for post successful login
-class HomePage extends StatelessWidget {
-  final FirebaseDynamicLinks dynamicLink;
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
-
-  HomePage(
-      {@required this.dynamicLink,
-      @required this.auth,
-      @required this.googleSignIn});
-
+class HomePage extends HookWidget {
   final ButtonStyle elevatedStyle = ElevatedButton.styleFrom(
       elevation: 5,
       primary: Colors.deepPurple,
@@ -26,6 +16,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = useProvider(authServicesProvider);
+    // final dynamicLink = useProvider(linkServicesProvider);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -42,7 +34,7 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  auth.currentUser.photoURL,
+                  auth.getPhotoURL(),
                 ),
                 radius: 60,
                 backgroundColor: Colors.transparent,
@@ -56,7 +48,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                Auth(auth: auth, googleSignIn: googleSignIn).getName(),
+                auth.getName(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -71,7 +63,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                auth.currentUser.email,
+                auth.getEmail(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -80,13 +72,10 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  Auth(auth: auth, googleSignIn: googleSignIn).signOutGoogle();
+                  auth.signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LandingPage(
-                        dynamicLink: dynamicLink,
-                        auth: auth,
-                        googleSignIn: googleSignIn);
+                    return LandingPage();
                   }), ModalRoute.withName('/'));
                 },
                 child: Padding(
@@ -99,10 +88,7 @@ class HomePage extends StatelessWidget {
               ),
               ElevatedButton(
                 // onPressed: () async {
-                //   String url = await DynamicLink(
-                //           dynamicLink: dynamicLink,
-                //           auth: auth,
-                //           googleSignIn: googleSignIn)
+                //   String url = await dynamicLink
                 //       .createDynamicLink("test", "12345");
                 //   print(url);
                 // },

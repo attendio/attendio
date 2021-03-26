@@ -1,18 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'signin_funcs.dart';
 
 class DynamicLink {
   final FirebaseDynamicLinks dynamicLink;
-  final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
+  final Auth auth;
 
-  DynamicLink(
-      {@required this.dynamicLink,
-      @required this.auth,
-      @required this.googleSignIn});
+  DynamicLink({@required this.dynamicLink, @required this.auth});
 
   // Checks if app was launched through dynamic link and routes accordingly
   void initDynamicLinks(context) async {
@@ -35,12 +29,9 @@ class DynamicLink {
   // Extracts path from deeplink and goes to window
   void handleDeepLink(context, Uri deepLink) async {
     if (deepLink != null) {
-      if (Auth(auth: auth, googleSignIn: googleSignIn).isSignedIn() == false) {
-        String result = await Auth(auth: auth, googleSignIn: googleSignIn)
-            .signInWithGoogle();
-        if (result == null ||
-            Auth(auth: auth, googleSignIn: googleSignIn).isSignedIn() ==
-                false) {
+      if (auth.isSignedIn() == false) {
+        String result = await auth.signInWithGoogle();
+        if (result == null || auth.isSignedIn() == false) {
           throw "Sign-in Error";
         }
       }

@@ -58,4 +58,12 @@ class Auth {
     // Only taking the first part of the name, i.e., First Name
     return (name.contains(" ")) ? name.substring(0, name.indexOf(" ")) : name;
   }
+
+  String getPhotoURL() {
+    return auth.currentUser.photoURL;
+  }
+
+  String getEmail() {
+    return auth.currentUser.email;
+  }
 }

@@ -1,15 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:attendio/providers/firestore_provider.dart';
 import 'package:flutter/material.dart';
-
-final firestoreInstance = FirebaseFirestore.instance;
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Login page layout
-class CreateEvent extends StatefulWidget {
-  @override
-  _CreateEventState createState() => _CreateEventState();
-}
-
-class _CreateEventState extends State<CreateEvent> {
+class CreateEvent extends HookWidget {
   final ButtonStyle createAccountStyle = ElevatedButton.styleFrom(
     elevation: 5,
     primary: Color(0xFF38006B),
@@ -46,6 +41,7 @@ class _CreateEventState extends State<CreateEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final firestore = useProvider(firestoreProvider);
     TextEditingController nameController = new TextEditingController();
     TextEditingController dateController = new TextEditingController();
     TextEditingController descriptionController = new TextEditingController();
@@ -64,10 +60,10 @@ class _CreateEventState extends State<CreateEvent> {
                   print(nameController.text);
                   print(dateController.text);
                   print(descriptionController.text);
-                  firestoreInstance.collection("Events").add({
-                    "event_name": "john",
-                    "datetime": 50,
-                    "description": "example@example.com",
+                  firestore.collection("Events").add({
+                    "event_name": nameController.text,
+                    "datetime": dateController.text,
+                    "description": descriptionController.text,
                   }).then((value) {
                     print(value.id);
                   });
