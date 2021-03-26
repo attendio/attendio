@@ -109,7 +109,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
             child: EventList(6, (value) {
               if (isLargeScreen) {
                 selectedValue = value;
-                setState(() {});
+                //setState(() {});
               } else {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
