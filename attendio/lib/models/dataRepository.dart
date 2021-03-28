@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
