@@ -34,12 +34,17 @@ dependencies:
   qr_flutter: "^3.2.0"
   path_provider: "^1.6.27"
   share: "^0.6.5+4"
+  flutter_launcher_icons: "^0.9.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: "^5.0.0"
 
+
+flutter_icons:
+  android: true
+  image_path: "assets/icon/icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,7 +63,7 @@ flutter:
 
   assets:
   - assets/
-
+  - assets/icon/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

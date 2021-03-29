@@ -30,7 +30,9 @@ class LandingPage extends HookWidget {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: 150),
-              FlutterLogo(size: 150),
+              //FlutterLogo(size: 150),
+              Image.asset('assets/icon/icon.png',
+                  height: 150, width: 150, scale: 0.3),
               SizedBox(height: 100),
               // ElevatedButton(
               //   onPressed: () {
