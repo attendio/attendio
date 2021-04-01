@@ -12,7 +12,7 @@ class DataRepository {
     return collection.add(event.toJson());
   }
 
-  Future<DocumentReference> updateEvent(Event event) async {
+  updateEvent(Event event) async {
     await collection.doc(event.reference.id).update(event.toJson());
   }
 }
