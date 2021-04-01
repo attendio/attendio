@@ -11,12 +11,10 @@ typedef Null ItemSelectedCallback(int value);
 
 /// Displays a list of events scheduled
 class EventList extends StatefulWidget {
-  final int count;
   final ItemSelectedCallback onItemSelected;
 
   EventList(
-    this.count,
-    this.onItemSelected,
+    {@required this.onItemSelected}
   );
 
   @override
@@ -56,7 +54,7 @@ class _EventListState extends State<EventList> {
         child: ListTile(
           title: Text(event.event_name),
         ),
-        onTap: widget.onItemSelected(position),
+        onTap: () => widget.onItemSelected(position),
       ),
     );
   }
@@ -65,6 +63,7 @@ class _EventListState extends State<EventList> {
 /// Displays the details for the event selected on the EventList
 class EventDetail extends StatefulWidget {
   final String eventTitle;
+  //TODO add Event model item as data
 
   EventDetail(this.eventTitle);
 
@@ -93,7 +92,7 @@ class EventDetailsPage extends StatefulWidget {
 }
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
-  var selectedValue = 0;
+  var selectedValue;
   var isLargeScreen = false;
 
   @override
@@ -106,14 +105,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
         return Row(children: [
           Expanded(
-            child: EventList(6, (value) {
+            child: EventList(onItemSelected: (value) {
               if (isLargeScreen) {
-                selectedValue = value;
-                //setState(() {});
+                //setState(() { selectedValue = value; });
               } else {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return SmallDetailPage("Event Title");
+                    return MobileEventDetailPage("Event Title");
                   },
                 ));
               }
@@ -128,16 +126,16 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   }
 }
 
-class SmallDetailPage extends StatefulWidget {
+class MobileEventDetailPage extends StatefulWidget {
   final String eventTitle;
 
-  SmallDetailPage(this.eventTitle);
+  MobileEventDetailPage(this.eventTitle);
 
   @override
-  _SmallDetailPageState createState() => _SmallDetailPageState();
+  _MobileEventDetailPageState createState() => _MobileEventDetailPageState();
 }
 
-class _SmallDetailPageState extends State<SmallDetailPage> {
+class _MobileEventDetailPageState extends State<MobileEventDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(), body: EventDetail(widget.eventTitle));
