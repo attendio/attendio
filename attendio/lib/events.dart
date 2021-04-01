@@ -6,16 +6,15 @@ import 'models/event.dart';
 
 /// Page showing the list of events created by the user,
 /// along with details for each event when selected.
-
-typedef Null ItemSelectedCallback(int value);
+/// References:
+///   - https://iiro.dev/implementing-adaptive-master-detail-layouts/
+///   - https://medium.com/flutter-community/developing-for-multiple-screen-sizes-and-orientations-in-flutter-fragments-in-flutter-a4c51b849434
 
 /// Displays a list of events scheduled
 class EventList extends StatefulWidget {
-  final ItemSelectedCallback onItemSelected;
+  final ValueChanged<Event> onItemSelected;
 
-  EventList(
-    {@required this.onItemSelected}
-  );
+  EventList({@required this.onItemSelected});
 
   @override
   _EventListState createState() => _EventListState();
@@ -54,7 +53,7 @@ class _EventListState extends State<EventList> {
         child: ListTile(
           title: Text(event.event_name),
         ),
-        onTap: () => widget.onItemSelected(position),
+        onTap: () => widget.onItemSelected(event),
       ),
     );
   }
@@ -62,10 +61,10 @@ class _EventListState extends State<EventList> {
 
 /// Displays the details for the event selected on the EventList
 class EventDetail extends StatefulWidget {
-  final String eventTitle;
+  final Event event;
   //TODO add Event model item as data
 
-  EventDetail(this.eventTitle);
+  EventDetail(this.event);
 
   @override
   _EventDetailState createState() => _EventDetailState();
@@ -79,7 +78,38 @@ class _EventDetailState extends State<EventDetail> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-          Text(widget.eventTitle, style: Theme.of(context).textTheme.headline2),
+          Text(
+            widget.event?.event_name ?? "No name",
+            style: Theme.of(context).textTheme.headline2,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            widget.event?.description ?? "",
+            style: Theme.of(context).textTheme.headline5,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 100.0),
+          ElevatedButton(
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Take Attendance',
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+            ),
+          ),
+          SizedBox(height: 20.0),
+          OutlinedButton(
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Share Link',
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+          ),
         ])));
   }
 }
@@ -92,7 +122,7 @@ class EventDetailsPage extends StatefulWidget {
 }
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
-  var selectedValue;
+  Event selectedEvent;
   var isLargeScreen = false;
 
   @override
@@ -105,20 +135,22 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 
         return Row(children: [
           Expanded(
-            child: EventList(onItemSelected: (value) {
+            child: EventList(onItemSelected: (event) {
               if (isLargeScreen) {
-                //setState(() { selectedValue = value; });
+                setState(() {
+                  selectedEvent = event;
+                });
               } else {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return MobileEventDetailPage("Event Title");
+                    return MobileEventDetailPage(event);
                   },
                 ));
               }
             }),
           ),
           isLargeScreen
-              ? Expanded(child: EventDetail("Event Title"), flex: 3)
+              ? Expanded(child: EventDetail(selectedEvent), flex: 3)
               : Container(),
         ]);
       }),
@@ -127,9 +159,9 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
 }
 
 class MobileEventDetailPage extends StatefulWidget {
-  final String eventTitle;
+  final Event event;
 
-  MobileEventDetailPage(this.eventTitle);
+  MobileEventDetailPage(this.event);
 
   @override
   _MobileEventDetailPageState createState() => _MobileEventDetailPageState();
@@ -138,6 +170,6 @@ class MobileEventDetailPage extends StatefulWidget {
 class _MobileEventDetailPageState extends State<MobileEventDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), body: EventDetail(widget.eventTitle));
+    return Scaffold(appBar: AppBar(), body: EventDetail(widget.event));
   }
 }
