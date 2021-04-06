@@ -3,7 +3,7 @@ import 'package:attendio/providers/dl_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'home.dart';
+import 'home_screen.dart';
 
 // Login page layout
 class LandingPage extends HookWidget {
@@ -88,19 +88,7 @@ class LandingPage extends HookWidget {
     );
 
     return OutlinedButton(
-      onPressed: () {
-        auth.signInWithGoogle().then((result) {
-          if (result != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return HomePage();
-                },
-              ),
-            );
-          }
-        });
-      },
+      onPressed: () {},
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(

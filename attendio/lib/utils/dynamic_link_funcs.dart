@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'signin_funcs.dart';
+import 'package:attendio/utils/auth_view_model.dart';
 
 class DynamicLink {
   final FirebaseDynamicLinks dynamicLink;
-  final Auth auth;
+  final AuthViewModel authService;
+  final FirebaseAuth auth;
 
-  DynamicLink({@required this.dynamicLink, @required this.auth});
+  DynamicLink(
+      {@required this.dynamicLink,
+      @required this.authService,
+      @required this.auth});
 
   // Checks if app was launched through dynamic link and routes accordingly
   void initDynamicLinks(context) async {
@@ -29,9 +34,10 @@ class DynamicLink {
   // Extracts path from deeplink and goes to window
   void handleDeepLink(context, Uri deepLink) async {
     if (deepLink != null) {
-      if (auth.isSignedIn() == false) {
-        String result = await auth.signInWithGoogle();
-        if (result == null || auth.isSignedIn() == false) {
+      if (auth.currentUser == null) {
+        try {
+          await authService.signInWithGoogle();
+        } catch (e) {
           throw "Sign-in Error";
         }
       }

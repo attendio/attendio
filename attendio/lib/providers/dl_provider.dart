@@ -6,6 +6,10 @@ import 'auth_provider.dart';
 final firebaseLinkProvider =
     Provider<FirebaseDynamicLinks>((ref) => FirebaseDynamicLinks.instance);
 
-final linkServicesProvider = Provider<DynamicLink>((ref) => DynamicLink(
+final linkServicesProvider = Provider<DynamicLink>(
+  (ref) => DynamicLink(
     dynamicLink: ref.read(firebaseLinkProvider),
-    auth: ref.read(authServicesProvider)));
+    authService: ref.read(authServicesProvider),
+    auth: ref.read(firebaseAuthProvider),
+  ),
+);

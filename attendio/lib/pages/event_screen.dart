@@ -8,12 +8,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share/share.dart';
 
-class EventPage extends StatefulWidget {
+class EventScreen extends StatefulWidget {
   @override
   _EventPageState createState() => _EventPageState();
 }
 
-class _EventPageState extends State<EventPage> {
+class _EventPageState extends State<EventScreen> {
   GlobalKey globalKey = new GlobalKey();
 
   String dynamicLink = "insert link here";

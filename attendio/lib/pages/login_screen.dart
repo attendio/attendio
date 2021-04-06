@@ -1,13 +1,21 @@
+import 'package:attendio/providers/router_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-import '../utils/styles.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:attendio/providers/auth_provider.dart';
+import 'package:attendio/utils/styles.dart';
 
 // Login page layout
 
-class LoginPage extends HookWidget {
+class LoginScreen extends HookWidget {
+  const LoginScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final auth = useProvider(authServicesProvider);
+    final authState = useProvider(firebaseAuthProvider);
+    final delegate = useProvider(delegateProvider);
+
     return Scaffold(
       body: CustomPaint(
         painter: BackgroundPainter(),
@@ -32,6 +40,33 @@ class LoginPage extends HookWidget {
               Image.asset('assets/icon/icon.png',
                   height: 150, width: 150, scale: 0.3),
               SizedBox(height: 50),
+              OutlinedButton(
+                onPressed: () async {
+                  auth.signInWithGoogle();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image(
+                          image: AssetImage("assets/google_logo.png"),
+                          height: 35.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
