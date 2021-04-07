@@ -1,3 +1,4 @@
+import 'package:attendio/providers/dl_provider.dart';
 import 'package:attendio/providers/firestore_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -42,6 +43,7 @@ class CreateEvent extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final firestore = useProvider(firestoreProvider);
+    final dynamicLink = useProvider(linkServicesProvider);
     TextEditingController nameController = new TextEditingController();
     TextEditingController dateController = new TextEditingController();
     TextEditingController descriptionController = new TextEditingController();
@@ -64,7 +66,10 @@ class CreateEvent extends HookWidget {
                     "event_name": nameController.text,
                     "datetime": dateController.text,
                     "description": descriptionController.text,
-                  }).then((value) {
+                  }).then((value) async {
+                    String link =
+                        await dynamicLink.createDynamicLink("test", value.id);
+                    value.update({"dyanmic_link": link});
                     print(value.id);
                   });
                 },
