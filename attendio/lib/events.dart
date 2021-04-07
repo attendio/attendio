@@ -1,7 +1,9 @@
 import 'package:attendio/models/dataRepository.dart';
+import 'package:attendio/utils/share_funcs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'models/event.dart';
 
 /// Page showing the list of events created by the user,
@@ -71,6 +73,8 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
+  GlobalKey globalKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,7 +92,18 @@ class _EventDetailState extends State<EventDetail> {
             style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 100.0),
+          SizedBox(height: 20.0),
+          RepaintBoundary(
+            key: globalKey,
+            child: QrImage(
+              data: widget.event?.dyanmic_link ??
+                  "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              version: QrVersions.auto,
+              size: 200.0,
+              backgroundColor: Colors.white,
+            ),
+          ),
+          SizedBox(height: 20.0),
           ElevatedButton(
             onPressed: () {},
             child: Padding(
@@ -101,7 +116,22 @@ class _EventDetailState extends State<EventDetail> {
           ),
           SizedBox(height: 20.0),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              captureAndSharePng(globalKey);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Share Image',
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+          ),
+          SizedBox(height: 20.0),
+          OutlinedButton(
+            onPressed: () {
+              shareText(widget.event?.dyanmic_link ?? "No link");
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
