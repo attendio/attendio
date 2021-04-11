@@ -1,3 +1,4 @@
+import 'package:attendio/pages/check_in_screen.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'signin_funcs.dart';
@@ -35,7 +36,11 @@ class DynamicLink {
           throw "Sign-in Error";
         }
       }
-      Navigator.pushNamed(context, deepLink.path);
+      var eventId = deepLink.pathSegments.last;
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CheckInScreen(eventId)),
+      );
     }
   }
 
