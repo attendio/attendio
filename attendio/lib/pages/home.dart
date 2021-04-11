@@ -1,5 +1,7 @@
 import 'package:attendio/events.dart';
+import 'package:attendio/pages/check_in_screen.dart';
 import 'package:attendio/providers/auth_provider.dart';
+import 'package:barcode_scan_fix/barcode_scan.dart';
 // import 'package:attendio/providers/dl_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -88,11 +90,6 @@ class HomePage extends HookWidget {
                 ),
               ),
               ElevatedButton(
-                // onPressed: () async {
-                //   String url = await dynamicLink
-                //       .createDynamicLink("test", "12345");
-                //   print(url);
-                // },
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -108,13 +105,21 @@ class HomePage extends HookWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/test');
+                onPressed: () async {
+                  String scanResult = await BarcodeScanner.scan();
+                  var link = Uri.parse(scanResult);
+                  var eventId =
+                      Uri.parse(link.queryParameters["link"]).pathSegments.last;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CheckInScreen(eventId)),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Go To Event',
+                    'Scan Event Code',
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
@@ -122,8 +127,8 @@ class HomePage extends HookWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EventDetailsPage()),
+                    context,
+                    MaterialPageRoute(builder: (context) => EventDetailsPage()),
                   );
                 },
                 child: Padding(
