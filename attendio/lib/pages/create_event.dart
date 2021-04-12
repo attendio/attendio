@@ -69,7 +69,11 @@ class CreateEvent extends HookWidget {
                   }).then((value) async {
                     String link =
                         await dynamicLink.createDynamicLink("test", value.id);
-                    value.update({"dyanmic_link": link});
+                    List<String> attendees = [];
+                    value.update({
+                      "dyanmic_link": link,
+                      "attendees": attendees,
+                    });
                     print(value.id);
                   });
                 },
