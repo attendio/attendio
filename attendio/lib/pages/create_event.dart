@@ -1,5 +1,6 @@
 import 'package:attendio/providers/dl_provider.dart';
 import 'package:attendio/providers/firestore_provider.dart';
+import 'package:attendio/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -48,6 +49,8 @@ class CreateEvent extends HookWidget {
     TextEditingController dateController = new TextEditingController();
     TextEditingController descriptionController = new TextEditingController();
 
+    final auth = useProvider(firebaseAuthProvider);
+
     return Scaffold(
       body: Container(
         child: Center(
@@ -66,6 +69,7 @@ class CreateEvent extends HookWidget {
                     "event_name": nameController.text,
                     "datetime": dateController.text,
                     "description": descriptionController.text,
+                    "owner": auth.currentUser.uid,
                   }).then((value) async {
                     String link =
                         await dynamicLink.createDynamicLink("test", value.id);
