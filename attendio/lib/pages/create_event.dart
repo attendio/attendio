@@ -17,6 +17,25 @@ class CreateEvent extends HookWidget {
     primary: Color(0xFFB39DDB),
   );
 
+  DateTime selectedDate = DateTime.now();
+
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != selectedDate)
+      // setState(() {
+      selectedDate = pickedDate;
+    dateController.text = selectedDate.toString();
+    // });
+  }
+
   Widget _entryField(String title, controller) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -45,10 +64,6 @@ class CreateEvent extends HookWidget {
   Widget build(BuildContext context) {
     final firestore = useProvider(firestoreProvider);
     final dynamicLink = useProvider(linkServicesProvider);
-    TextEditingController nameController = new TextEditingController();
-    TextEditingController dateController = new TextEditingController();
-    TextEditingController descriptionController = new TextEditingController();
-
     final auth = useProvider(firebaseAuthProvider);
 
     return Scaffold(
@@ -58,13 +73,15 @@ class CreateEvent extends HookWidget {
             children: <Widget>[
               SizedBox(height: 100),
               _entryField("Event Name", nameController),
-              _entryField("Date & Time", dateController),
+              // _entryField("Date & Time", dateController),
               _entryField("Description", descriptionController),
               ElevatedButton(
+                style: submitStyle,
+                onPressed: () => _selectDate(context),
+                child: Text('Select date'),
+              ),
+              ElevatedButton(
                 onPressed: () {
-                  print(nameController.text);
-                  print(dateController.text);
-                  print(descriptionController.text);
                   firestore.collection("Events").add({
                     "event_name": nameController.text,
                     "datetime": dateController.text,
