@@ -40,6 +40,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: "^5.0.0"
+  flutter_native_splash: ^1.1.5+1
+
+flutter_native_splash:
+  color: "#6A1B9A"
+  image: "assets/splash_image/splash.v1.png"
+
 
 
 flutter_icons:
@@ -64,6 +70,7 @@ flutter:
   assets:
   - assets/
   - assets/icon/
+  - assets/splash_image/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
