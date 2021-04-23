@@ -110,7 +110,7 @@ class _EventDetailState extends State<EventDetail> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TakeAttendancePage() //TODO pass through event
+                  builder: (context) => TakeAttendancePage(widget.event.reference)
                 )
               );
             },
