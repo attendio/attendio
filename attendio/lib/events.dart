@@ -1,4 +1,5 @@
 import 'package:attendio/models/dataRepository.dart';
+import 'package:attendio/pages/take_attendance.dart';
 import 'package:attendio/utils/share_funcs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,14 @@ class _EventDetailState extends State<EventDetail> {
           ),
           SizedBox(height: 20.0),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TakeAttendancePage(widget.event.reference)
+                )
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
