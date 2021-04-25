@@ -136,21 +136,7 @@ class Profile extends HookWidget {
               ),
             ),
           ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => CreateEvent()),
-          //     );
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Text(
-          //       'Create Event',
-          //       style: TextStyle(fontSize: 25, color: Colors.white),
-          //     ),
-          //   ),
-          // ),
+          // Keeping this comment here for now since new widget was adapted from this snippet
           // ElevatedButton(
           //   onPressed: () async {
           //     String scanResult = await BarcodeScanner.scan();

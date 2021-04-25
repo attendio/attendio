@@ -176,11 +176,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
               onTap: () {
                 print("here");
                 Fluttertoast.showToast(
-                    msg: "This is Center Short Toast",
+                    msg: "Feature to be added",
                     toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
+                    gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
                     textColor: Colors.black,
                     fontSize: 16.0);
               },
