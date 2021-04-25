@@ -30,8 +30,6 @@ class Profile extends HookWidget {
         ],
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
             height: 25,
@@ -136,27 +134,6 @@ class Profile extends HookWidget {
               ),
             ),
           ),
-          // Keeping this comment here for now since new widget was adapted from this snippet
-          // ElevatedButton(
-          //   onPressed: () async {
-          //     String scanResult = await BarcodeScanner.scan();
-          //     var link = Uri.parse(scanResult);
-          //     var eventId =
-          //         Uri.parse(link.queryParameters["link"]).pathSegments.last;
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => CheckInScreen(eventId)),
-          //     );
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Text(
-          //       'Scan Event Code',
-          //       style: TextStyle(fontSize: 25, color: Colors.white),
-          //     ),
-          //   ),
-          // ),
           Container(
             height: 25,
           ),
