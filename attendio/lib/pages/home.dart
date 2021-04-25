@@ -1,29 +1,24 @@
 import 'package:attendio/events.dart';
-import 'package:attendio/pages/check_in_screen.dart';
-import 'package:attendio/providers/auth_provider.dart';
-import 'package:barcode_scan_fix/barcode_scan.dart';
+import 'package:attendio/pages/profile.dart';
+import 'package:attendio/pages/cam.dart';
 import 'package:attendio/providers/bottomnav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'landing.dart';
-import 'create_event.dart';
-import 'test.dart';
-
 // Landing page for post successful login
 class HomePage extends HookWidget {
   final _views = [
     EventDetailsPage(),
-    LandingPage(),
-    PlaceholderWidget(Colors.amber),
+    Profile(),
+    CameraCheckin(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final tabType = useProvider(tabTypeProvider);
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(primaryColor: Color(0xFF6A1B9A)),
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
@@ -39,7 +34,7 @@ class HomePage extends HookWidget {
               label: 'Profile',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.check),
+              icon: Icon(Icons.camera_alt_outlined),
               label: 'Check In',
             ),
           ],
