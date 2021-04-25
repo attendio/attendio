@@ -1,6 +1,6 @@
 import 'package:attendio/events.dart';
 import 'package:attendio/pages/profile.dart';
-import 'package:attendio/pages/cam.dart';
+import 'package:attendio/pages/checkin.dart';
 import 'package:attendio/providers/bottomnav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,14 +11,17 @@ class HomePage extends HookWidget {
   final _views = [
     EventDetailsPage(),
     Profile(),
-    CameraCheckin(),
+    CheckIn(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final tabType = useProvider(tabTypeProvider);
     return MaterialApp(
-      theme: ThemeData(primaryColor: Color(0xFF6A1B9A)),
+      theme: ThemeData(
+        primaryColor: Color(0xFF6A1B9A),
+        scaffoldBackgroundColor: Color(0xFFB39DDB),
+      ),
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
@@ -34,7 +37,7 @@ class HomePage extends HookWidget {
               label: 'Profile',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.camera_alt_outlined),
+              icon: Icon(Icons.check),
               label: 'Check In',
             ),
           ],

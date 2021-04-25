@@ -34,7 +34,6 @@ class Profile extends HookWidget {
         // mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
-            color: Color(0xFFB39DDB),
             child: Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height / 2,
@@ -160,19 +159,22 @@ class Profile extends HookWidget {
           Container(
             alignment: Alignment.center,
             width: double.infinity,
-            color: Color(0xFFB39DDB),
             child: Text(
               'Your Events',
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 28.0,
                 color: Color(0xFF373737),
-                // fontWeight: FontWeight.bold,
               ),
+            ),
+          ),
+          Container(
+            child: Divider(
+              height: 10,
+              thickness: 2,
             ),
           ),
           Expanded(
             child: Container(
-              color: Color(0xFFB39DDB),
               child: ListView(
                 children: <Widget>[
                   ListTile(

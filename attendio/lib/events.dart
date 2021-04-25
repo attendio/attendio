@@ -174,9 +174,26 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
-                print("here");
                 Fluttertoast.showToast(
-                    msg: "Feature to be added",
+                    msg: "Filter Feature to be added",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.black,
+                    fontSize: 16.0);
+              },
+              child: Icon(
+                Icons.filter_alt_outlined,
+                size: 26.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Fluttertoast.showToast(
+                    msg: "Search Feature to be added",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
