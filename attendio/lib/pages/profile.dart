@@ -34,9 +34,10 @@ class Profile extends HookWidget {
         // mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
+            height: 25,
+          ),
+          Container(
             child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 2,
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,6 +157,9 @@ class Profile extends HookWidget {
           //     ),
           //   ),
           // ),
+          Container(
+            height: 25,
+          ),
           Container(
             alignment: Alignment.center,
             width: double.infinity,
