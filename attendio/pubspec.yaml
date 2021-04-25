@@ -36,6 +36,7 @@ dependencies:
   share: "^0.6.5+4"
   flutter_launcher_icons: "^0.9.0"
   barcode_scan_fix: "^1.0.2"
+  # persistent_bottom_nav_bar: any
 
 dev_dependencies:
   flutter_test:
