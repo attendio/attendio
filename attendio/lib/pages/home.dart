@@ -22,7 +22,7 @@ class HomePage extends HookWidget {
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          selectedItemColor: Colors.black,
+          selectedItemColor: Color(0xFF6A1B9A),
           unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(

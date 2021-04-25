@@ -108,11 +108,10 @@ class _EventDetailState extends State<EventDetail> {
           ElevatedButton(
             onPressed: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TakeAttendancePage(widget.event.reference)
-                )
-              );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TakeAttendancePage(widget.event.reference)));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -166,7 +165,26 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Attendio"),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.search,
+                  size: 26.0,
+                ),
+              )),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(Icons.add),
+              )),
+        ],
+      ),
       body: OrientationBuilder(builder: (context, orientation) {
         isLargeScreen =
             (MediaQuery.of(context).size.width > widget.minScreenWidth);
