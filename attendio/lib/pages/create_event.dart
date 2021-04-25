@@ -67,6 +67,9 @@ class CreateEvent extends HookWidget {
     final auth = useProvider(firebaseAuthProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Attendio"),
+      ),
       body: Container(
         child: Center(
           child: Column(

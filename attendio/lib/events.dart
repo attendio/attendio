@@ -1,4 +1,5 @@
 import 'package:attendio/models/dataRepository.dart';
+import 'package:attendio/pages/create_event.dart';
 import 'package:attendio/pages/take_attendance.dart';
 import 'package:attendio/utils/share_funcs.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'models/event.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// Page showing the list of events created by the user,
 /// along with details for each event when selected.
@@ -108,11 +110,10 @@ class _EventDetailState extends State<EventDetail> {
           ElevatedButton(
             onPressed: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TakeAttendancePage(widget.event.reference)
-                )
-              );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TakeAttendancePage(widget.event.reference)));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -166,7 +167,59 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Attendio"),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Fluttertoast.showToast(
+                    msg: "Filter Feature to be added",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.black,
+                    fontSize: 16.0);
+              },
+              child: Icon(
+                Icons.filter_alt_outlined,
+                size: 26.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Fluttertoast.showToast(
+                    msg: "Search Feature to be added",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.black,
+                    fontSize: 16.0);
+              },
+              child: Icon(
+                Icons.search,
+                size: 26.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CreateEvent()),
+                );
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        ],
+      ),
       body: OrientationBuilder(builder: (context, orientation) {
         isLargeScreen =
             (MediaQuery.of(context).size.width > widget.minScreenWidth);
