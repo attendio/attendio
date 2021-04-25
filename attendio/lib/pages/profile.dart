@@ -30,6 +30,8 @@ class Profile extends HookWidget {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
             height: 25,
@@ -91,7 +93,6 @@ class Profile extends HookWidget {
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.white,
-                                      // fontWeight: FontWeight.bold,
                                     ),
                                   )
                                 ],
@@ -119,7 +120,6 @@ class Profile extends HookWidget {
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: Colors.white,
-                                      // fontWeight: FontWeight.bold,
                                     ),
                                   )
                                 ],

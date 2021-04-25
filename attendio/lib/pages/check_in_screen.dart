@@ -16,8 +16,6 @@ class CheckInScreen extends HookWidget {
     final firestore = useProvider(firestoreProvider);
     final auth = useProvider(firebaseAuthProvider);
 
-    print("here");
-
     return StreamBuilder(
       stream: firestore.collection("Events").doc(eventId).snapshots(),
       builder: (context, snapshot) {
