@@ -35,6 +35,8 @@ dependencies:
   path_provider: "^1.6.27"
   share: "^0.6.5+4"
   flutter_launcher_icons: "^0.9.0"
+  barcode_scan_fix: "^1.0.2"
+  fluttertoast: ^8.0.6
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
+import 'package:attendio/providers/dl_provider.dart';
 import 'package:attendio/providers/firestore_provider.dart';
+import 'package:attendio/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +16,25 @@ class CreateEvent extends HookWidget {
     elevation: 5,
     primary: Color(0xFFB39DDB),
   );
+
+  DateTime selectedDate = DateTime.now();
+
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != selectedDate)
+      // setState(() {
+      selectedDate = pickedDate;
+    dateController.text = selectedDate.toString();
+    // });
+  }
 
   Widget _entryField(String title, controller) {
     return Container(
@@ -42,29 +63,41 @@ class CreateEvent extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final firestore = useProvider(firestoreProvider);
-    TextEditingController nameController = new TextEditingController();
-    TextEditingController dateController = new TextEditingController();
-    TextEditingController descriptionController = new TextEditingController();
+    final dynamicLink = useProvider(linkServicesProvider);
+    final auth = useProvider(firebaseAuthProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Attendio"),
+      ),
       body: Container(
         child: Center(
           child: Column(
             children: <Widget>[
               SizedBox(height: 100),
               _entryField("Event Name", nameController),
-              _entryField("Date & Time", dateController),
+              // _entryField("Date & Time", dateController),
               _entryField("Description", descriptionController),
               ElevatedButton(
+                style: submitStyle,
+                onPressed: () => _selectDate(context),
+                child: Text('Select date'),
+              ),
+              ElevatedButton(
                 onPressed: () {
-                  print(nameController.text);
-                  print(dateController.text);
-                  print(descriptionController.text);
                   firestore.collection("Events").add({
                     "event_name": nameController.text,
                     "datetime": dateController.text,
                     "description": descriptionController.text,
-                  }).then((value) {
+                    "owner": auth.currentUser.uid,
+                  }).then((value) async {
+                    String link =
+                        await dynamicLink.createDynamicLink("test", value.id);
+                    List<String> attendees = [];
+                    value.update({
+                      "dyanmic_link": link,
+                      "attendees": attendees,
+                    });
                     print(value.id);
                   });
                 },
