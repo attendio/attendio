@@ -54,6 +54,11 @@ class _EventListState extends State<EventList> {
   Widget _buildEventListItem(snapshot, position) {
     final event = Event.fromSnapshot(snapshot);
     return Card(
+      color: Color(0xFFf4f1fa),
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: InkWell(
         child: ListTile(
           title: Text(event.event_name),
@@ -108,6 +113,9 @@ class _EventDetailState extends State<EventDetail> {
           ),
           SizedBox(height: 20.0),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF6A1B9A), // background
+            ),
             onPressed: () {
               Navigator.push(
                   context,
@@ -132,7 +140,7 @@ class _EventDetailState extends State<EventDetail> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Share Image',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 25, color: Color(0xFF6A1B9A)),
               ),
             ),
           ),
@@ -145,7 +153,7 @@ class _EventDetailState extends State<EventDetail> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Share Link',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 25, color: Color(0xFF6A1B9A)),
               ),
             ),
           ),
@@ -168,7 +176,13 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Attendio"),
+        title: Text("Attendio",
+            style: TextStyle(
+                color: Color(0xFF6A1B9A),
+                fontWeight: FontWeight.w700,
+                fontSize: 25)),
+        backgroundColor: Colors.white,
+        elevation: 5,
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20.0),
@@ -185,6 +199,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
               child: Icon(
                 Icons.filter_alt_outlined,
                 size: 26.0,
+                color: Color(0xFF6A1B9A),
               ),
             ),
           ),
@@ -200,10 +215,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     textColor: Colors.black,
                     fontSize: 16.0);
               },
-              child: Icon(
-                Icons.search,
-                size: 26.0,
-              ),
+              child: Icon(Icons.search, size: 26.0, color: Color(0xFF6A1B9A)),
             ),
           ),
           Padding(
@@ -215,7 +227,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                   MaterialPageRoute(builder: (context) => CreateEvent()),
                 );
               },
-              child: Icon(Icons.add),
+              child: Icon(Icons.add, color: Color(0xFF6A1B9A)),
             ),
           ),
         ],
