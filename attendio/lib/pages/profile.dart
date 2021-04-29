@@ -1,4 +1,5 @@
 import 'package:attendio/providers/auth_provider.dart';
+import 'package:attendio/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +14,13 @@ class Profile extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Attendio"),
+        title: Text("Attendio",
+            style: TextStyle(
+                color: Color(0xFF6A1B9A),
+                fontWeight: FontWeight.w700,
+                fontSize: 25)),
+        backgroundColor: Colors.white,
+        elevation: 5,
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 20.0),
@@ -25,7 +32,7 @@ class Profile extends HookWidget {
                     return LandingPage();
                   }), ModalRoute.withName('/'));
                 },
-                child: Icon(Icons.logout),
+                child: Icon(Icons.logout, color: Color(0xFF6A1B9A)),
               )),
         ],
       ),
@@ -47,7 +54,7 @@ class Profile extends HookWidget {
                       backgroundImage: NetworkImage(
                         auth.getPhotoURL(),
                       ),
-                      radius: 75.0,
+                      radius: 45.0,
                     ),
                     SizedBox(
                       height: 10.0,
@@ -55,7 +62,7 @@ class Profile extends HookWidget {
                     Text(
                       auth.getName(),
                       style: TextStyle(
-                        fontSize: 30.0,
+                        fontSize: 25.0,
                         color: Color(0xFF373737),
                         fontWeight: FontWeight.bold,
                       ),
@@ -71,17 +78,18 @@ class Profile extends HookWidget {
                       elevation: 5.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 22.0),
+                            horizontal: 6.0, vertical: 15.0),
                         child: Row(
                           children: <Widget>[
                             Container(
+                              margin: const EdgeInsets.only(left: 16.0),
                               child: Column(
                                 children: <Widget>[
                                   Text(
                                     "Events Created",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 22.0,
+                                      fontSize: 18.0,
                                       // fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -91,7 +99,7 @@ class Profile extends HookWidget {
                                   Text(
                                     "250",
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       color: Colors.white,
                                     ),
                                   )
@@ -108,7 +116,7 @@ class Profile extends HookWidget {
                                     "Events Attended",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 22.0,
+                                      fontSize: 18.0,
                                       // fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -118,7 +126,7 @@ class Profile extends HookWidget {
                                   Text(
                                     "1337",
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       color: Colors.white,
                                     ),
                                   )

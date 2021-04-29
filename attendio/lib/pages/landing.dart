@@ -29,11 +29,11 @@ class LandingPage extends HookWidget {
             mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 150),
+              SizedBox(height: 25),
               //FlutterLogo(size: 150),
-              Image.asset('assets/icon/icon.png',
-                  height: 150, width: 150, scale: 0.3),
-              SizedBox(height: 100),
+              Image.asset('assets/landing_page_logo.png',
+                  height: 250, width: 250, scale: 0.5),
+              SizedBox(height: 1),
               // ElevatedButton(
               //   onPressed: () {
               //     Navigator.push(

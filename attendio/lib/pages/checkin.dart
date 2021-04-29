@@ -9,7 +9,13 @@ class CheckIn extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Attendio"),
+        title: Text("Attendio",
+            style: TextStyle(
+                color: Color(0xFF6A1B9A),
+                fontWeight: FontWeight.w700,
+                fontSize: 25)),
+        backgroundColor: Colors.white,
+        elevation: 5,
       ),
       body: Column(
         children: <Widget>[

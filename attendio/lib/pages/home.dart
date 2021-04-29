@@ -20,25 +20,28 @@ class HomePage extends HookWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Color(0xFF6A1B9A),
-        scaffoldBackgroundColor: Color(0xFFB39DDB),
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          selectedItemColor: Color(0xFF6A1B9A),
-          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Color(0xFFE6CEFF),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Events',
+              backgroundColor: Color(0xFF6A1B9A),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.face),
               label: 'Profile',
+              backgroundColor: Color(0xFF6A1B9A),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.check),
               label: 'Check In',
+              backgroundColor: Color(0xFF6A1B9A),
             ),
           ],
           onTap: (int selectIndex) {
