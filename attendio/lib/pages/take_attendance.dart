@@ -10,11 +10,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 class TakeAttendancePage extends StatelessWidget {
   TakeAttendancePage(this.eventId);
 
-  final DocumentReference eventId;
+ final DocumentReference eventId;
 
   @override
   Widget build(BuildContext context) {
-    // final firestore = useProvider(firestoreProvider);
+    var isLargeScreen = false;
+    var minScreenWidth = 600;
 
     return Scaffold(
         appBar: AppBar(),
@@ -29,13 +30,22 @@ class TakeAttendancePage extends StatelessWidget {
               DocumentSnapshot documentSnapshot = snapshot.data;
               Event event = Event.fromSnapshot(documentSnapshot);
 
-              return Row(children: [
-                Expanded(child: AttendeeList(eventId)),
-                Expanded(
-                  child: EventSignInWidget(event),
-                  flex: 3,
-                ),
-              ]);
+              return OrientationBuilder(builder: (context, orientation)
+              {
+                isLargeScreen = (MediaQuery
+                    .of(context)
+                    .size
+                    .width > minScreenWidth);
+                return Row(children: [
+                  Expanded(
+                    child: EventSignInWidget(event),
+                    flex: 3,
+                  ),
+                  // Hide attendee list on mobile / small screens
+                  // TODO make it a DraggableScrollableWidget instead
+                  isLargeScreen ? Expanded(child: AttendeeList(eventId)) : Container(),
+                ]);
+              });
             } else {
               return const Center(child: CircularProgressIndicator());
             }
@@ -60,10 +70,12 @@ class EventSignInWidget extends StatelessWidget {
           Text(
             Strings.signInTo.toUpperCase(),
             style: Theme.of(context).textTheme.headline5,
+            textAlign: TextAlign.center,
           ),
           Text(
             event.event_name,
             style: Theme.of(context).textTheme.headline3,
+            textAlign: TextAlign.center,
           ),
           RepaintBoundary(
             key: globalKey,
@@ -78,14 +90,17 @@ class EventSignInWidget extends StatelessWidget {
           Text(
             Strings.instructionsTitle,
             style: Theme.of(context).textTheme.subtitle1,
+            textAlign: TextAlign.center,
           ),
           Text(
             Strings.instructionsBodyText1,
             style: Theme.of(context).textTheme.bodyText1,
+            textAlign: TextAlign.center,
           ),
           Text(
             Strings.instructionsBodyText2,
             style: Theme.of(context).textTheme.bodyText1,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
