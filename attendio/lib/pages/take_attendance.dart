@@ -1,3 +1,4 @@
+import 'package:attendio/models/attendee.dart';
 import 'package:attendio/models/event.dart';
 import 'package:attendio/utils/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -93,23 +94,22 @@ class EventSignInWidget extends StatelessWidget {
 }
 
 class AttendeeList extends HookWidget {
-  AttendeeList(this.eventReference);
+  AttendeeList(this.attendeeReference);
 
-  DocumentReference eventReference;
+  DocumentReference attendeeReference;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: eventReference.snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: attendeeReference.collection('attendees').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          Event event = Event.fromSnapshot(snapshot.data);
+          QuerySnapshot querySnapshot = snapshot.data;
 
           return ListView.builder(
-            itemCount: event.attendees?.length ?? 0,
-            itemBuilder: (context, index) =>
-                _buildAttendeeListItem(event.attendees[index], index),
-          );
+              itemCount: querySnapshot.size,
+              itemBuilder: (context, index) =>
+                  _buildAttendeeListItem(querySnapshot.docs[index], index));
         }
 
         if (snapshot.hasError) {
@@ -121,11 +121,15 @@ class AttendeeList extends HookWidget {
     );
   }
 
-  Widget _buildAttendeeListItem(userId, index) {
+  Widget _buildAttendeeListItem(snapshot, index) {
+    final attendee = Attendee.fromSnapshot(snapshot);
     return Card(
         child: InkWell(
       child: ListTile(
-        title: Text(userId.toString()),
+        title: Text(attendee.displayName),
+        leading: CircleAvatar(
+            backgroundImage: Image.network(attendee.photoURL).image),
+        // subtitle: Text(attendee.datetime.toString()),
       ),
     ));
   }

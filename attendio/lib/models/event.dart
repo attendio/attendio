@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'attendee.dart';
+
 /// Data model for an Event specified in the Firestore.
 /// Includes name and details about each event.
 ///

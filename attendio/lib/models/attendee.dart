@@ -6,16 +6,27 @@ class Attendee {
   String displayName;
   String photoURL;
   DateTime datetime;
+  DocumentReference reference;
 
   Attendee(this.uid, {this.displayName, this.photoURL, this.datetime});
 
   factory Attendee.fromCurrentUser() {
     final auth = FirebaseAuth.instance;
     final user = auth.currentUser;
-    return Attendee(user.uid, displayName: user.displayName, photoURL: user.photoURL, datetime: DateTime.now());
+    return Attendee(user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        datetime: DateTime.now());
   }
 
-  factory Attendee.fromJson(Map<dynamic, dynamic> json) => _attendeeFromJson(json);
+  factory Attendee.fromSnapshot(DocumentSnapshot snapshot) {
+    Attendee newAttendee = Attendee.fromJson(snapshot.data());
+    newAttendee.reference = snapshot.reference;
+    return newAttendee;
+  }
+
+  factory Attendee.fromJson(Map<dynamic, dynamic> json) =>
+      _attendeeFromJson(json);
 }
 
 _attendeeFromJson(Map<dynamic, dynamic> json) {
@@ -23,13 +34,17 @@ _attendeeFromJson(Map<dynamic, dynamic> json) {
     json['uid'] as String,
     displayName: json['displayName'] as String,
     photoURL: json['photoURL'] == null ? null : (json['photoURL'] as String),
-    datetime: json['datetime'] == null ? null : (json['dateTime'] as Timestamp).toDate(),
+    datetime: json['datetime'] == null
+        ? null
+        : (json['dateTime'] as Timestamp)?.toDate() ?? null,
   );
 }
 
-Map<String, dynamic> _attendeeToJson(Attendee instance) => <String, dynamic> {
-  'uid': instance.uid,
-  'displayName': instance.displayName,
-  'photoURL': instance.photoURL,
-  'datetime': instance.datetime,
-};
+extension JsonEncoding on Attendee {
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'uid': this.uid,
+        'displayName': this.displayName,
+        'photoURL': this.photoURL,
+        'datetime': this.datetime,
+      };
+}
