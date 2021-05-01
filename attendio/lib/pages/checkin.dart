@@ -1,6 +1,7 @@
 import 'package:attendio/pages/check_in_screen.dart';
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CheckIn extends StatelessWidget {
   @override
@@ -57,7 +58,15 @@ class CheckIn extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF6A1B9A),
               ),
-              onPressed: () async {},
+              onPressed: () async {
+                Fluttertoast.showToast(
+                    msg: "Enter Event Code Feature to be added",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.black,
+                    fontSize: 16.0);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

@@ -80,9 +80,9 @@ class Profile extends HookWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 15.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             Container(
-                              margin: const EdgeInsets.only(left: 16.0),
                               child: Column(
                                 children: <Widget>[
                                   Text(
@@ -90,7 +90,6 @@ class Profile extends HookWidget {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
-                                      // fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   SizedBox(
@@ -109,7 +108,7 @@ class Profile extends HookWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Expanded(
+                            Container(
                               child: Column(
                                 children: <Widget>[
                                   Text(
@@ -117,7 +116,6 @@ class Profile extends HookWidget {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
-                                      // fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   SizedBox(
