@@ -1,3 +1,4 @@
+import 'package:attendio/models/attendee.dart';
 import 'package:attendio/models/event.dart';
 import 'package:attendio/utils/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +10,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 class TakeAttendancePage extends StatelessWidget {
   TakeAttendancePage(this.eventId);
 
-  final DocumentReference eventId;
+ final DocumentReference eventId;
 
   @override
   Widget build(BuildContext context) {
-    // final firestore = useProvider(firestoreProvider);
+    var isLargeScreen = false;
+    var minScreenWidth = 600;
 
     return Scaffold(
         appBar: AppBar(),
@@ -28,13 +30,22 @@ class TakeAttendancePage extends StatelessWidget {
               DocumentSnapshot documentSnapshot = snapshot.data;
               Event event = Event.fromSnapshot(documentSnapshot);
 
-              return Row(children: [
-                Expanded(child: AttendeeList(eventId)),
-                Expanded(
-                  child: EventSignInWidget(event),
-                  flex: 3,
-                ),
-              ]);
+              return OrientationBuilder(builder: (context, orientation)
+              {
+                isLargeScreen = (MediaQuery
+                    .of(context)
+                    .size
+                    .width > minScreenWidth);
+                return Row(children: [
+                  Expanded(
+                    child: EventSignInWidget(event),
+                    flex: 3,
+                  ),
+                  // Hide attendee list on mobile / small screens
+                  // TODO make it a DraggableScrollableWidget instead
+                  isLargeScreen ? Expanded(child: AttendeeList(eventId)) : Container(),
+                ]);
+              });
             } else {
               return const Center(child: CircularProgressIndicator());
             }
@@ -59,10 +70,12 @@ class EventSignInWidget extends StatelessWidget {
           Text(
             Strings.signInTo.toUpperCase(),
             style: Theme.of(context).textTheme.headline5,
+            textAlign: TextAlign.center,
           ),
           Text(
             event.event_name,
             style: Theme.of(context).textTheme.headline3,
+            textAlign: TextAlign.center,
           ),
           RepaintBoundary(
             key: globalKey,
@@ -77,14 +90,17 @@ class EventSignInWidget extends StatelessWidget {
           Text(
             Strings.instructionsTitle,
             style: Theme.of(context).textTheme.subtitle1,
+            textAlign: TextAlign.center,
           ),
           Text(
             Strings.instructionsBodyText1,
             style: Theme.of(context).textTheme.bodyText1,
+            textAlign: TextAlign.center,
           ),
           Text(
             Strings.instructionsBodyText2,
             style: Theme.of(context).textTheme.bodyText1,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -93,23 +109,22 @@ class EventSignInWidget extends StatelessWidget {
 }
 
 class AttendeeList extends HookWidget {
-  AttendeeList(this.eventReference);
+  AttendeeList(this.attendeeReference);
 
-  DocumentReference eventReference;
+  DocumentReference attendeeReference;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: eventReference.snapshots(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: attendeeReference.collection('attendees').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          Event event = Event.fromSnapshot(snapshot.data);
+          QuerySnapshot querySnapshot = snapshot.data;
 
           return ListView.builder(
-            itemCount: event.attendees?.length ?? 0,
-            itemBuilder: (context, index) =>
-                _buildAttendeeListItem(event.attendees[index], index),
-          );
+              itemCount: querySnapshot.size,
+              itemBuilder: (context, index) =>
+                  _buildAttendeeListItem(querySnapshot.docs[index], index));
         }
 
         if (snapshot.hasError) {
@@ -121,11 +136,15 @@ class AttendeeList extends HookWidget {
     );
   }
 
-  Widget _buildAttendeeListItem(userId, index) {
+  Widget _buildAttendeeListItem(snapshot, index) {
+    final attendee = Attendee.fromSnapshot(snapshot);
     return Card(
         child: InkWell(
       child: ListTile(
-        title: Text(userId.toString()),
+        title: Text(attendee.displayName),
+        leading: CircleAvatar(
+            backgroundImage: Image.network(attendee.photoURL).image),
+        // subtitle: Text(attendee.datetime.toString()),
       ),
     ));
   }

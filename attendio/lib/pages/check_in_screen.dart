@@ -1,3 +1,4 @@
+import 'package:attendio/models/attendee.dart';
 import 'package:attendio/models/event.dart';
 import 'package:attendio/providers/auth_provider.dart';
 import 'package:attendio/providers/firestore_provider.dart';
@@ -32,9 +33,14 @@ class CheckInScreen extends HookWidget {
         DocumentReference docReference = docSnapshot.reference;
 
         if (auth.currentUser?.uid != null) {
-          docReference.update({
-            "attendees": FieldValue.arrayUnion([auth.currentUser.uid])
-          });
+          final attendee = Attendee.fromCurrentUser();
+
+          // Add document using User ID as the document ID to prevent
+          // duplicate entries for the same attendee.
+          docReference
+              .collection("attendees")
+              .doc(attendee.uid)
+              .set(attendee.toJson());
         }
 
         return MaterialApp(
