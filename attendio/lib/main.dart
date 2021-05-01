@@ -13,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // SHIP IT 🤙 05/01/2021
       home: FutureBuilder(
           future: Firebase.initializeApp(),
           builder: (context, snapshot) {
